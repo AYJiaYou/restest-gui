@@ -1,32 +1,36 @@
 language: node_js
 node_js:
 - '6.9'
+cache:
+  directories:
+    - node_modules
 services:
   - docker
 branches:
   only:
   - master
   - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+install: "npm i && npm update"
 before_deploy:
-  - "npm run build"
+  - npm run build
 env:
-  - DOCKER_IMAGE_NAME=swaggerapi/swagger-editor
+  - DOCKER_IMAGE_NAME=swaggerapi/swagger-ui
 deploy:
   - provider: npm
     email: apiteam@swagger.io
     skip_cleanup: true
     api_key:
-      secure: "Fh8+qozAjs8YxWYntPN/xO3UNpQ+avEzOz4ULzn5lEXbcQgV/v1/e6ABk06HZ9Go9rigYpR2LnxLfP7Tp6ZC4dFE9GR0ota5rkrXlCJi6QktDccyKEvai2cayDW/3nFv4A7yM1xWgTMlQP5cVfZVEWopscWKCIdnZ9QvhTW0TKY="
+      secure: "YKk5L1BL4oAixvLjWp+i85fNFXK85HKOlUt6QypkZkt23My5aywuYsv5VCLjjOtuWc72zbmOzP82DTBsuRswCRViXWCiNYhl42QTdvadHu0uIlM/FL6aNlvPpzXIws4bMvz1aYOTzFTnSnNuvCTzF1daW0+2ClOo3r0nLEdDfFg="
     on:
       tags: true
-      repo: swagger-api/swagger-editor
+      repo: swagger-api/swagger-ui
       node: '6.9'
   - provider: script
     skip_cleanup: true
-    script: swagger-editor-dist-package/deploy.sh
+    script: swagger-ui-dist-package/deploy.sh
     on:
       tags: true
-      repo: swagger-api/swagger-editor
+      repo: swagger-api/swagger-ui
       node: '6.9'
 after_success:
   - if [ $DOCKER_HUB_USERNAME ]; then

@@ -5,20 +5,43 @@
     "stage-0"
   ],
   "plugins": [
-  "transform-runtime",
-  "transform-async-to-generator",
-  [
-    "module-alias",
+    "transform-runtime",
     [
-      {
-        "expose": "plugins",
-        "src": "src/plugins"
-      },
-      {
-        "expose": "src",
-        "src": "src"
-      }
+      "module-alias",
+      [
+        {
+          "expose": "root",
+          "src": "."
+        },
+        {
+          "expose": "components",
+          "src": "src/core/components"
+        },
+        {
+          "expose": "core",
+          "src": "src/core"
+        },
+        {
+          "expose": "plugins",
+          "src": "src/plugins"
+        },
+        {
+          "expose": "img",
+          "src": "src/img"
+        },
+        {
+          "expose": "corePlugins",
+          "src": "src/core/plugins"
+        },
+        {
+          "expose": "less",
+          "src": "src/less"
+        },
+        {
+          "expose": "base",
+          "src": "npm:getbase/src/less/base"
+        }
+      ]
     ]
   ]
-]
 }
